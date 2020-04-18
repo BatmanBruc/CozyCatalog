@@ -1,10 +1,11 @@
 <template>
-	<div class="navigation" v-bind:class="{ active: active }">
+	<div class="navigation-admin" v-bind:class="{ active: active }">
     <ul>
-      <li class="navigation_item">Каталог</li>
-      <li class="navigation_item" @click="openPage('search')">Поиск</li>
-      <li class="navigation_item" @click="openPage('adminPanel')">Управление</li>
-      <li class="navigation_item">Настройки</li>
+      <!--<li class="navigation-admin_item">Каталог</li>-->
+      <li class="navigation-admin_item" @click="openPage('search')">Каталог</li>
+      <li class="navigation-admin_item" @click="openPage('adminPanel')">Управление</li>
+      <li class="navigation-admin_item" @click="openPage('finance')">Финансы</li>
+      <!--<li class="navigation-admin_item">Настройки</li>-->
     </ul>
   </div>
 </template>
@@ -41,22 +42,26 @@ export default {
 </script>
 
 <style>
-.navigation {
+.navigation-admin {
     position: fixed;
     width: 100%;
     height: 100%;
     background: white;
     left: 0px;
     top: 0px;
+    display: none;
 }
-.navigation ul {
+.navigation-admin ul {
     padding: 10px;
 }
-li.navigation_item {
+li.navigation-admin_item {
     font-size: 19px;
     border: 1px solid #ccc;
     margin-bottom: 5px;
     padding: 5px;
     border-radius: 3px;
+}
+.navigation-admin.active{
+  display: block;
 }
 </style>

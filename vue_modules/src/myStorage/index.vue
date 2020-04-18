@@ -38,6 +38,9 @@ export default {
   },
   methods: {
       openPage(val){
+            window.stackForBack.push(()=>{
+                this.openNav = true;
+            });
           this.openNav = false;
           this.activePage = val;
       }
@@ -46,4 +49,7 @@ export default {
 </script>
 
 <style>
+.myStorage{
+    margin: 8px;
+}
 </style>

@@ -104,7 +104,6 @@ img.item__img {
     margin-left: 2px;
     height: 100%;
     padding: 0 5px;
-    line-height: 75px;
     border-radius: 3px;
     border: 1px solid #ccc;
 }

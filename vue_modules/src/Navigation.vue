@@ -31,6 +31,9 @@ export default {
   },
   methods: {
     myStorage(){
+      window.stackForBack.push(()=>{
+        this.open = true;
+      });
       this.open = false;
       window.navigation.initMyStorage();
     }
@@ -47,6 +50,7 @@ export default {
     left: 0px;
     top: 0px;
     display: none;
+    z-index: 1000;
 }
 .navigation.active{
   display: block;
