@@ -21,18 +21,33 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link href="https://fonts.googleapis.com/css?family=Rubik&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Montserrat&amp;display=swap" rel="stylesheet">
         <link href="css/index.css" rel="stylesheet">
         <title>Hello World</title>
     </head>
     <body>
-        <div id="header"></div>
-        <div id="nav"></div>
+        <!-- <div id="header"></div>
+        <div id="nav"></div> -->
         <div id="app">
         </div>
         <script type="text/javascript" src="cordova.js"></script>
         <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
         <script type="text/javascript" src="js/index.js"></script>
         <script type="text/javascript" src="js/build.js"></script>
+        <script>
+            let bubble;
+            let newMass = [];
+            let mass = [324,325,234,543,1,2,4465546,6432];
+            for (let j = mass.length - 1; j > 0; j--) {
+                for (let i = 0; i < j; i++) {
+                  if (mass[i] > mass[i + 1]) {
+                    let temp = mass[i];
+                    mass[i] = mass[i + 1];
+                    mass[i + 1] = temp;
+                  }
+                }
+              }
+            console.log(mass);
+        </script>
     </body>
 </html>
