@@ -1,23 +1,24 @@
-class DB{
-    constructor(name, version, keyPath, autoIncrement) {
-        this.name = name;
+import config from './config';
+import stores from './stores'
 
-        let openRequest = indexedDB.open(this.name, version);
+class DB{
+    constructor() {
+        this.name = config['name'];
+        this.version = config['version'];
+        
+        let openRequest = indexedDB.open(this.name, this.version);
         this.db;
         let cntx = this;
         openRequest.onupgradeneeded = function() {
             cntx.db = openRequest.result;
-            switch(cntx.db.version) {
-                case 0:
-                    console.log('Иницилизация');
-                case 1:
-                    console.log('Обновление');
+            for (let i = 0; i < config.length; i++) {
+                const store = array[i];
+                if (!cntx.db.objectStoreNames.contains(store['name'])) {
+                    cntx.db.createObjectStore(store['name'], {keyPath: store['keyPath'], autoIncrement: store['autoIncrement']});
+                }
             }
-            if (!cntx.db.objectStoreNames.contains(cntx.name)) {
-                cntx.db.createObjectStore(cntx.name, {keyPath: keyPath, autoIncrement: autoIncrement});
-            }
+            
         };
-        
         openRequest.onerror = function() {
             console.error("Error", openRequest.error);
         };

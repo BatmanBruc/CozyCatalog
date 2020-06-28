@@ -4,20 +4,16 @@ import DB from './DB.js';
 
 class Model{
 
-    constructor(name, versionDb, keyPath, autoIncrement){
-        this.db = new DB(name, versionDb, keyPath, autoIncrement);
+    constructor(){
+        this.db = new DB();
     }
-    
-
     get(id){
         let res;
         if(id)
             res = this.db.get(id);
         else
             res = this.db.getAll();
-        res.onsuccess = ()=>{
-            console.log(res.result)
-        }
+        return res;
     }
     set(val){
         let res = this.db.set(val);

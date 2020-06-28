@@ -1,4 +1,4 @@
-let config = {
-    'nameDB': 'CozyCatalog',
+export default {
+    'name': 'CozyCatalog',
     'version': 1
 }

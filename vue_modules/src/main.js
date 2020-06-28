@@ -44,5 +44,3 @@ window.navigation = {
   },
 }
 window.navigation.initMyStorage();
-
-window.product = new Product();
