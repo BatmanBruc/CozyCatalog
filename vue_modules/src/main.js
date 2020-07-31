@@ -7,10 +7,11 @@ import Product from './models/Product';
 window.backButton = backButton;
 Vue.use(Vuex);
 
-let store = new Vuex.Store({
+window.store = new Vuex.Store({
 	state: {
       filter: null,
-      nav_open: true
+      nav_open: true,
+      productPage: null
 	}
 })
 

@@ -1,19 +1,20 @@
 <template>
 	<div class="product-search">
-	    <div class="product-search__field" >
-	    	<div class="product-search__form">
-	    		<input @change="getproducts(value)" @keydown.enter="getproducts(value)" v-model="value" type="text" class="product-search__input"/>
-	    	</div>
-	    </div>
-    	<ul class="product-search__products products">
-	      <product
-	      v-for="product in products"
-	      :name="product.name"
-	      :file="product.file"
-	      :price="product.price"
-	      :statusSale="product.statusSale"
-	      ></product>
-	  </ul>
+    <div class="product-search__field" >
+      <div class="product-search__form">
+        <input @change="getproducts(value)" @keydown.enter="getproducts(value)" v-model="value" type="text" class="product-search__input"/>
+      </div>
+    </div>
+    <ul class="product-search__products products">
+      <product
+      v-for="product in products"
+      :id="product.id"
+      :name="product.name"
+      :file="product.file"
+      :price="product.price"
+      :statusSale="product.statusSale"
+      ></product>
+    </ul>
 	</div>
 </template>
 
@@ -42,33 +43,12 @@ export default {
   computed: {
   },
   methods: {
-      async getproducts(value){
-        this.products = [];
-        if(this.value){
-          let res = await Product.get();
-            res.onsuccess = ()=>{
-              let filter = this.filter('id', value);
-              if(filter == []){
-                filter = this.filter('name', value);
-              }
-            }
-        }else{
-          let res = await Product.get();
-          res.onsuccess = ()=>{
-            this.products = res.result;
-          }
-        }
+    async getproducts(value){
+      this.products = [];
+      Product.search(this.value, (result)=> {
+        this.products = result;
+      })
     },
-    filter(key, value){
-      let products = [];
-      for (let index = 0; index < res.result.length; index++) {
-          let element = res.result[index];
-          if(element[key] && element[key] == value){
-              products.push(element);
-          }
-      }
-      return products;
-    }
   }
 }
 </script>

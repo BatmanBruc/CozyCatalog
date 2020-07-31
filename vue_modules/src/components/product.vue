@@ -1,8 +1,8 @@
 <template>
 <li v-if="filter" class="product">
-  <div class="product__box-img"><img class="product__img" :src="file" alt=""></div>
+  <div class="product__box-img" @click="openPage"><img class="product__img" :src="file" alt=""></div>
   <div class="product__box-info">
-    <div class="product__name">{{ name }}</div>
+    <div class="product__name" @click="openPage">{{ name }}</div>
     <div :class="{ 'product__status--sales' : statusSale}" class="product__status">{{ statusSale ? 'Продано' : 'В наличии' }}</div>
     <div class="product__price">{{ price }} руб.</div>
   </div>
@@ -10,7 +10,7 @@
     <div v-if="!statusSale" class="product__box-button product__box-button--sale" @click="sale()">
       Продать
     </div>
-    <div v-if="statusSale" class="product__box-button product__box-button--return" @click="returnproduct()">
+    <div v-if="statusSale" class="product__box-button product__box-button--return" @click="reeturn()">
       Вернуть
     </div>
   </div>
@@ -18,9 +18,18 @@
 </template>
 
 <script>
+
+import Product from '../models/Product.js';
+import {productPageMixin} from '../mixins/product-page.js';
+
 export default {
   name: 'product',
+  mixins: [productPageMixin],
   props: {
+    id: {
+      type: Number,
+      default: null,
+    },
     name: {
       type: String,
       default: '',
@@ -30,7 +39,7 @@ export default {
       default: '',
     },
     statusSale: {
-      type: Number,
+      type: Boolean,
       default: false,
     },
     price: {
@@ -51,10 +60,31 @@ export default {
   },
   methods: {
     sale(){
-      this.statusSale = 1;
+      this.statusSale = true;
+      Product.change(this.id, {
+        statusSale: this.statusSale,
+      });
+      this.$emit('sale');
     },
-    returnproduct(){
-      this.statusSale = 0;
+    openPage(){
+      let res = Product.get(this.id);
+      res.onsuccess = ()=>{
+        this.$store.state.productPage = res.result;
+      }
+      // this.$store.state.productPage = {
+      //   id: this.id,
+      //   name: this.name,
+      //   file: this.file,
+      //   statusSale: this.statusSale,
+      //   price: this.price
+      // };
+    },
+    reeturn(){
+      this.statusSale = false;
+      Product.change(this.id, {
+        statusSale: this.statusSale,
+      });
+      this.$emit('return');
     }
   }
 }
@@ -78,6 +108,7 @@ li.product:last-child {
 .product__box-img {
     min-width: 95px;
     height: 50px;
+    text-align: center;
 }
 
 img.product__img {

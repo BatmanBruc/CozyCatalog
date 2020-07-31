@@ -1,11 +1,10 @@
 <template>
 	<div class="mini-product">
-        <div class="mini-product__name">{{ name }}</div>
-        <div class="mini-product__price">{{ price }}</div>
-    </div>
+    <div class="mini-product__img"><img :src="img"/></div>
+    <div class="mini-product__name">{{ name }}</div>
+    <div class="mini-product__price">{{ price }} ₽</div>
+  </div>
 </template>
-
-
 
 <script>
 export default {
@@ -20,6 +19,10 @@ export default {
     price: {
       type: Number,
       default: 0,
+    },
+    img: {
+      type: String,
+      default: '',
     }
   },
   data () {
@@ -37,23 +40,25 @@ export default {
 
 <style>
 .mini-list-product {
-    padding-left: 20%;
 }
 .mini-product {
     border-bottom: 1px solid #cacaca;
     padding: 15px;
+    display: flex;
+    justify-content: space-between;
 }
 .mini-product:last-child {
     border-bottom: 0px;
 }
+.mini-product__img{
+    display: inline-block;
+}
 .mini-product__name {
     display: inline-block;
-    width: 49%;
     color: #686868;
 }
 .mini-product__price {
     display: inline-block;
-    width: 49%;
     text-align: end;
     color: #686868;
 }

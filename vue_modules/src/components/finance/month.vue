@@ -1,14 +1,15 @@
 <template>
 	<div class="month">
         <div class="month__header" @click="showActList">
-          <div class="month__name">{{ name }}</div>
-          <div class="month__finance">{{ finance }}</div>
+          <div class="month__name">{{ getNameMonth() }}</div>
+          <div class="month__finance">{{ finance }} ₽</div>
         </div>
         <div class="mini-list-product" v-if="showList">
           <miniProduct
 	      v-for="product in list"
 	      :name="product.name"
 	      :price="product.price"
+	      :img="product.img"
 	      ></miniProduct>
         </div>
       </div>
@@ -24,8 +25,8 @@ export default {
   },
   name: 'finance',
   props: {
-    name: {
-      type: String,
+    month: {
+      type: Number,
       default: '',
     },
     finance: {
@@ -57,7 +58,24 @@ export default {
           }else{
               this.showList = true;
           }
-      }
+      },
+      getNameMonth(){
+        let array = {
+          0: 'Январь',
+          1: 'Февраль',
+          2: 'Март',
+          3: 'Апрель',
+          4: 'Май',
+          5: 'Июнь',
+          6: 'Июль',
+          7: 'Август',
+          8: 'Сентябрь',
+          9: 'Октябрь',
+          10: 'Ноябрь',
+          11: 'Декабрь',
+        };
+        return array[this.month];
+      },
   }
 }
 </script>

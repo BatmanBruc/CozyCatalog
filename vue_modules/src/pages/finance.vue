@@ -3,7 +3,7 @@
     <div class="list-month">
       <month
 	      v-for="month in months"
-	      :name="month.name"
+	      :month="month.month"
 	      :finance="month.finance"
 	      :list="month.list"
 	      ></month>
@@ -15,7 +15,7 @@
 
 <script>
 import month from '../components/finance/month';
-import Product from '../models/Product.js'
+import Finance from '../models/Finance.js'
 export default {
   components:{
     month
@@ -23,111 +23,19 @@ export default {
   name: 'finance',
   data () {
     return {
-      months: [
-          {
-          name: 'Июнь',
-          finance: 25000,
-          list: [
-            {
-              name: 'Платье',
-              price: 5000
-            },
-            {
-              name: 'Платье',
-              price: 5000
-            },
-            {
-              name: 'Платье',
-              price: 5000
-            },
-            {
-              name: 'Платье',
-              price: 5000
-            },
-            {
-              name: 'Платье',
-              price: 5000
-            }
-          ]
-        },
-        {
-          name: 'Июнь',
-          finance: 25000,
-          list: [
-            {
-              name: 'Платье',
-              price: 5000
-            },
-            {
-              name: 'Платье',
-              price: 5000
-            },
-            {
-              name: 'Платье',
-              price: 5000
-            },
-            {
-              name: 'Платье',
-              price: 5000
-            },
-            {
-              name: 'Платье',
-              price: 5000
-            }
-          ]
-        },
-        {
-          name: 'Июнь',
-          finance: 25000,
-          list: [
-            {
-              name: 'Платье',
-              price: 5000
-            },
-            {
-              name: 'Платье',
-              price: 5000
-            },
-            {
-              name: 'Платье',
-              price: 5000
-            },
-            {
-              name: 'Платье',
-              price: 5000
-            },
-            {
-              name: 'Платье',
-              price: 5000
-            }
-          ]
-        }
-      ]
+      months: []
     }
   },
   created(){
-    this.getData();
+    Finance.get((months)=>{
+      this.months = months;
+    });
+    
+    //this.getData();
   },
   computed: {
   },
   methods: {
-    getNameMonth(num){
-      let array = {
-        0: 'Январь',
-        1: 'Февраль',
-        2: 'Март',
-        3: 'Апрель',
-        4: 'Май',
-        5: 'Июнь',
-        6: 'Июль',
-        7: 'Август',
-        8: 'Сентябрь',
-        9: 'Октябрь',
-        10: 'Ноябрь',
-        11: 'Декабрь',
-      };
-      return array[num];
-    },
     async getData(){
       let res = await Product.get();
       res.onsuccess = ()=>{

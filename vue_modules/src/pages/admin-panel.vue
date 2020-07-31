@@ -3,7 +3,7 @@
     <div class="block-create">
       <div class="field">
         <label class="field__label"></label>
-        <input v-model="name" name="name" type="text" placeholder="Имя" class="field__input-name">
+        <input v-model="name" name="name" type="text" pattern="\d [0-9]" placeholder="Имя" class="field__input-name">
       </div>
       <div class="field field-price">
         <label class="field__label"></label>
@@ -44,16 +44,27 @@ export default {
   },
   created(){
   },
-  computed: {
+  watch: {
+    price(){
+      // console.log(typeof this.price);
+      // if(this.price && typeof this.price != "object"){
+      //   if( !this.price.match(/(\$[0-9,]+(\.[0-9]{2})?)/))
+      //     this.price = this.price.substring(0, this.price.length - 1);
+      // }
+      let price = String(this.price);
+      console.log(price);
+      if(!/^([0-9]+)([.,]?)([0-9]*)$/.test(price)){
+        this.price = price.substring(0, price.length - 1);
+      }
+      
+    }
   },
   methods: {
     handleFileUpload(){
       this.file = this.$refs.file.files[0];
-      console.log(this.file);
     },
     onFileChange: function(e) {
                 let file = this.$refs.file.files;
-                alert(file.length);
                 if (!file.length)
                     return;
                 this.createImage(file[0]);
@@ -61,10 +72,8 @@ export default {
     createImage: function(file) {
         let reader = new FileReader();
         let vm = this;
-            console.log(file);
         reader.onload = function(e) {
             vm.image = e.target.result;
-            console.log(vm.image);
         };
         reader.readAsDataURL(file);
         
@@ -87,10 +96,11 @@ export default {
         'file': this.image,
         'statusSale': false,
         'description': this.desc,
-        'created_at': getNowDateString(),
-        'update_at': getNowDateString(),
+        'created_at': Date.now(),
+        'update_at': Date.now(),
       }
       product.set(params);
+      this.productPage = params;
     }
   }
 }

@@ -1,43 +1,40 @@
-import DB from './DB.js';
+import Store from './Store.js';
 
 
 
 class Model{
-
-    constructor(){
-        this.db = new DB();
+    constructor(nameStore){
+        this.store = new Store(nameStore);
     }
     get(id){
         let res;
         if(id)
-            res = this.db.get(id);
+            res = this.store.get(id);
         else
-            res = this.db.getAll();
+            res = this.store.getAll();
         return res;
     }
     set(val){
-        let res = this.db.set(val);
+        let res = this.store.set(val);
         res.onsuccess = ()=>{
             console.log(res.result)
         }
     }
     change(id,val){
-        let res = this.db.getAll();
+        let res = this.store.get(id);
         res.onsuccess = ()=>{
-            let items = res.result;
-            let find = false;
-            for (let i = 0; i < items.length; i++) {
-                const element = items[i];
-                if(id == element['id']){
-                    let resDel = this.db.delete(id);
-                    resDel.onsuccess = ()=>{
-                        val.id = id
-                        res = this.db.set(val);
-                        res.onsuccess = ()=>{
-                            console.log(res.result)
-                        }
-                    }
-                    find = true;
+            let item = res.result;
+            for (let key in item){
+                if(val.hasOwnProperty(key)){
+                    item[key] = val[key];
+                }
+            }
+            let resDel = this.store.delete(id);
+            resDel.onsuccess = ()=>{
+                val.id = id
+                res = this.store.set(item);
+                res.onsuccess = ()=>{
+                    console.log(res.result)
                 }
             }
             if(!find)

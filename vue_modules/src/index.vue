@@ -14,6 +14,16 @@
         <finance
             v-if="activePage == 'finance'"
         />
+        <productPage
+            :id="productPage.id"
+            :name="productPage.name"
+            :file="productPage.file"
+            :price="productPage.price"
+            :statusSale="productPage.statusSale"
+            :description="productPage.description"
+            @close="closeProductPage"
+            v-if="productPage"
+        />
     </div>
 </template>
 <script>
@@ -22,28 +32,36 @@ import navigation from './components/navigation';
 import search from './pages/search.vue';
 import adminPanel from './pages/admin-panel.vue';
 import finance from './pages/finance.vue';
+import productPage from './pages/product-page';
 
 export default {
   components:{
     navigation,
     search,
     adminPanel,
-    finance
+    finance,
+    productPage
   },
   name: 'myStorage',
   data () {
     return {
         activePage: null,
-        openNav: true
+        openNav: true,
     }
   },
   created(){
   },
   computed: {
+      productPage(){
+        return this.$store.state.productPage;
+      }
   },
   methods: {
       openPage(val){
-          this.activePage = val;
+        this.activePage = val;
+      },
+      closeProductPage(){
+        this.$store.state.productPage = null;
       }
   }
 }
