@@ -4,7 +4,7 @@
   <div class="product__box-info">
     <div class="product__name" @click="openPage">{{ name }}</div>
     <div :class="{ 'product__status--sales' : statusSale}" class="product__status">{{ statusSale ? 'Продано' : 'В наличии' }}</div>
-    <div class="product__price">{{ price }} руб.</div>
+    <div class="product__price">{{ price }} {{ currency }}</div>
   </div>
   <div class="product__box-buttons">
     <div v-if="!statusSale" class="product__box-button product__box-button--sale" @click="sale()">
@@ -45,6 +45,10 @@ export default {
     price: {
       type: Number,
       default: 0,
+    },
+    currency: {
+      type: String,
+      default: ''
     }
   },
   data () {

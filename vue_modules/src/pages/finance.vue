@@ -66,29 +66,12 @@ export default {
 </script>
 
 <style>
-.month__header {
-    border-radius: 2px;
-    padding: 15px;
-    border-bottom: 1px solid #c4c4c4;
-    background: #f2f2f2;
-}
-.month__name {
-    display: inline-block;
-    width: 49%;
-    font-style: normal;
-    color: #000000;
-}
-.month__finance {
-    display: inline-block;
-    width: 49%;
-    text-align: end;
-}
-.mini-list-product {
-    padding-left: 20%;
-}
+
+
 .mini-product {
     border-bottom: 1px solid #cacaca;
     padding: 15px;
+    line-height: 40px;
 }
 .mini-product:last-child {
     border-bottom: 0px;
@@ -103,5 +86,13 @@ export default {
     width: 49%;
     text-align: end;
     color: #686868;
+}
+.mini-product__img {
+    display: inline-block;
+    height: 40px;
+    margin-right: 30px;
+}
+.mini-product__img img{
+  height:100%;
 }
 </style>

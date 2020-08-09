@@ -45,3 +45,12 @@ window.navigation = {
   },
 }
 window.navigation.initMyStorage();
+
+function openModal(){
+  $('#modal-wrapper').html('<div id="modal"></div>');
+  new Vue({
+    el: '#modal-wrapper',
+    store,
+    render: h => h(myStorage)
+  })
+}

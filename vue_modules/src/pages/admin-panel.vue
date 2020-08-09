@@ -7,8 +7,12 @@
       </div>
       <div class="field field-price">
         <label class="field__label"></label>
-        <span class="currency">₽</span>
         <input v-model="price" name="price" type="text" placeholder="0" class="field__input">
+        <select v-model="currency" >
+          <option value="₽">₽</option>
+          <option value="$">$</option>
+          <option value="€">€</option>
+        </select>
       </div>
       <div class="field">
         <label class="field__label"></label>
@@ -36,7 +40,7 @@ export default {
     return {
       name: '',
       price: null,
-      currency: 'ruble',
+      currency: '₽',
       file: '',
       image: false,
       desc: ''
@@ -94,6 +98,7 @@ export default {
         'name': this.name,
         'price': this.price,
         'file': this.image,
+        'currency': this.currency,
         'statusSale': false,
         'description': this.desc,
         'created_at': Date.now(),
@@ -107,6 +112,11 @@ export default {
 </script>
 
 <style>
+.field-price select{
+  border: 0px;
+  background: white;
+  font-size: 27px;
+}
 .admin-panel {
     padding-bottom: 20px;
 }
@@ -154,6 +164,7 @@ textarea.field__input-desc {
     height: 40px;
     position: relative;
     box-sizing: border-box;
+        display: flex;
 }
 .field-price .currency {
     position: absolute;

@@ -1,5 +1,5 @@
 <template>
-	<div class="mini-product">
+	<div class="mini-product" @click="openPage">
     <div class="mini-product__img"><img :src="img"/></div>
     <div class="mini-product__name">{{ name }}</div>
     <div class="mini-product__price">{{ price }} ₽</div>
@@ -7,6 +7,8 @@
 </template>
 
 <script>
+import Product from '../../models/Product.js';
+
 export default {
   components:{
   },
@@ -34,6 +36,12 @@ export default {
   computed: {
   },
   methods: {
+    openPage(){
+      let res = Product.get(this.id);
+      res.onsuccess = ()=>{
+        this.$store.state.productPage = res.result;
+      }
+    },
   }
 }
 </script>

@@ -11,20 +11,27 @@ class Finance extends Model {
             let months = [];
             for (let index = 0; index < res.result.length; index++) {
                 let element = res.result[index];
-                if(!assocMonths[element.update_at]){
-                    assocMonths[element.update_at]= {};
-                    assocMonths[element.update_at]['finance'] = 0;
-                    assocMonths[element.update_at]['list'] = [];
+                if(!element.statusSale)
+                    continue;
+                let month = new Date(element.update_at).getMonth();
+                if(!assocMonths[month]){
+                    assocMonths[month]= {};
+                    assocMonths[month]['finance'] = {};
+                    assocMonths[month]['list'] = [];
                 }
-                assocMonths[element.update_at]['month'] = new Date(1594737244615).getMonth();
-                assocMonths[element.update_at]['list'].push(
+                assocMonths[month]['month'] = new Date(1594737244615).getMonth();
+                assocMonths[month]['list'].push(
                     {
                         name: element.name,
                         price: element.price,
                         img: element.file
                     }
                 )
-                assocMonths[element.update_at]['finance'] = assocMonths[element.update_at]['finance'] + Number(element.price);
+                if(assocMonths[month]['finance'][element.currency]){
+                    assocMonths[month]['finance'][element.currency] = assocMonths[month]['finance'][element.currency] + Number(element.price);
+                }else{
+                    assocMonths[month]['finance'][element.currency] = Number(element.price);
+                }
             }
             for (let key in assocMonths) {
                 months.push(assocMonths[key]);

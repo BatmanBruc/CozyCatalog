@@ -2,7 +2,11 @@
 	<div class="month">
         <div class="month__header" @click="showActList">
           <div class="month__name">{{ getNameMonth() }}</div>
-          <div class="month__finance">{{ finance }} ₽</div>
+          <div class="month__finance_wrapepr">
+            <div v-if="finance['₽']" class="month__finance">{{ finance['₽'] }} ₽</div>
+            <div v-if="finance['$']"  class="month__finance">{{ finance['$'] }} $</div>
+            <div v-if="finance['€']"  class="month__finance">{{ finance['€'] }} €</div>
+          </div>
         </div>
         <div class="mini-list-product" v-if="showList">
           <miniProduct
@@ -30,7 +34,7 @@ export default {
       default: '',
     },
     finance: {
-      type: Number,
+      type: Object,
       default: '',
     },
     list: {
@@ -81,6 +85,9 @@ export default {
 </script>
 
 <style>
+.month__finance_wrapepr{
+  display: flex;
+}
 .month__header {
     border-radius: 2px;
     padding: 15px;

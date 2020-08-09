@@ -4,13 +4,14 @@ class Product extends Model {
     constructor(){
         super('products');
     }
-    search(valInput, callback){
+    search(valInput, filter, callback){
         let res = super.get();
         res.onsuccess = ()=>{
+            let result = res.result;
             if(valInput){
                 let products = [];
-                for (let index = 0; index < res.result.length; index++) {
-                    let element = res.result[index];
+                for (let index = 0; index < result.length; index++) {
+                    let element = result[index];
                     if(element['name'].indexOf(valInput) != -1){
                         products.push(element);
                         continue;
@@ -18,10 +19,31 @@ class Product extends Model {
                         products.push(element);
                     }
                 }
-                callback(products);
-            }else{
-                callback(res.result);
+                result = products;
             }
+            if(filter){
+                let products = [];
+                for (let index = 0; index < result.length; index++) {
+                    let element = result[index];
+                    let skip = true;
+                    for (let i = 0; i < filter.length; i++) {
+                        let property = filter[i];
+                        let key = property.split('=')[0];
+                        let value = property.split('=')[1];
+                        if(element[key] == value){
+                            skip = false;
+                            break;
+                        }               
+                    }
+                    if(skip)
+                        continue;
+                    else
+                        products.push(element);
+                }
+                result = products;
+            }
+            callback(result);
+            
             
         }
     }
