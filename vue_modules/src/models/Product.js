@@ -4,7 +4,7 @@ class Product extends Model {
     constructor(){
         super('products');
     }
-    search(valInput, filter, callback){
+    search(valInput, filter, sort, callback){
         let res = super.get();
         res.onsuccess = ()=>{
             let result = res.result;
@@ -42,9 +42,42 @@ class Product extends Model {
                 }
                 result = products;
             }
+            if(sort){
+                switch(sort) {
+                    case 'priceUp':
+                        for (var i = 0, endI = result.length - 1; i < endI; i++) {
+                            for (var j = 0, endJ = endI - i; j < endJ; j++) {
+                                if (Number(result[j]['price']) > Number(result[j + 1]['price'])) {
+                                    var swap = result[j];
+                                    console.log(swap);
+                                    console.log(result[j + 1]);
+                                    result[j] = result[j + 1];
+                                    result[j + 1] = swap;
+                                    console.log('0' + result[0]['price']);
+                                    console.log('1' + result[1]['price']);
+                                    console.log('2' + result[2]['price']);
+                                    console.log('3' + result[3]['price']);
+                                }
+                            }
+                        }
+                        console.log(result);            
+                    case 'priceDown':  
+                        for (var i = 0, endI = result.length - 1; i < endI; i++) {
+                            for (var j = 0, endJ = endI - i; j < endJ; j++) {
+                                if (result[j]['price'] < result[j + 1]['price']) {
+                                    var swap = result[j];
+                                    result[j] = result[j + 1];
+                                    result[j + 1] = swap;
+                                }
+                            }
+                        } 
+                    case 'nameUp':
+
+                    case 'nameDown':
+
+                  }
+            }
             callback(result);
-            
-            
         }
     }
 }

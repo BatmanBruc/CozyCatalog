@@ -1,7 +1,7 @@
 <template>
 	<div class="product-search">
     <div class="product-search__field" >
-      <div class="product-search__b-filter" @click="openFilter()"></div>
+      <div class="product-search__b-filter" @click="openFilter()"><settingIcon /></div>
       <div class="product-search__form">
         <input @change="getproducts(value)" @keydown.enter="getproducts(value)" v-model="value" type="text" class="product-search__input"/>
       </div>
@@ -17,7 +17,7 @@
       :currency="product.currency"
       ></product>
     </ul>
-    <modal :visible="visibleFilter" :title="'Настройки'" @close="closeFilter()">
+    <modal :visible="visibleSetting" :title="'Настройки'" @close="closeFilter()">
       <div class="product-search__filter">
         <div class="fields-wrapper">
           <div class="field field-checkbox">
@@ -30,6 +30,15 @@
             <label class="field-checkbox__label" for="statusSale=1"></label>
             <span class="field-checkbox__name">Проданные</span>
           </div>
+          <hr />
+          <div class="field field-select">
+            <select v-model="sort">
+              <option value="priceUp">Цена по возрастанию</option>
+              <option value="priceDown">Цена по убыванию</option>
+              <option value="nameUp">А - Я</option>
+              <option value="nameDown">Я - А</option>
+            </select>
+          </div>
         </div>
       </div>
     </modal>
@@ -40,10 +49,12 @@
 import product from '../components/product.vue';
 import modal from '../components/modal.vue';
 import Product from '../models/Product.js';
+import settingIcon from '../assept/icons/setting'
 export default {
   components:{
     modal: modal,
-    product: product
+    product: product,
+    settingIcon: settingIcon
   },
   name: 'Search',
   data () {
@@ -53,7 +64,8 @@ export default {
       ],
       value: null,
       filter: ['statusSale=true'],
-      visibleFilter: false
+      visibleSetting: false,
+      sort: false
     }
   },
   created(){
@@ -65,37 +77,48 @@ export default {
   watch: {
     filter(){
       this.getproducts();
+    },
+    sort(){
+      this.getproducts();
     }
   },
   methods: {
     async getproducts(){
       this.products = [];
-      Product.search(this.value, this.filter, (result)=> {
+      Product.search(this.value, this.filter, this.sort, (result)=> {
         this.products = result;
         console.log(this.products);
       })
     },
     openFilter(){
-      console.log(this.visibleFilter);
-      if(this.visibleFilter)
-        this.visibleFilter = false;
+      console.log(this.visibleSetting);
+      if(this.visibleSetting)
+        this.visibleSetting = false;
       else
-        this.visibleFilter = true;
+        this.visibleSetting = true;
     },
     closeFilter(){
-      this.visibleFilter = false;
+      this.visibleSetting = false;
     }
   }
 }
 </script>
 
 <style>
+.product-search__form {
+    width: 100%;
+}
 .product-search__b-filter {
     height: 40px;
     border: 1px solid #ccc;
     min-width: 40px;
     border-radius: 8px;
     margin-right: 5px;
+}
+.product-search__b-filter svg {
+    width: 24px;
+    margin: 8px;
+    fill: #747474;
 }
 .filter{
   display: flex;

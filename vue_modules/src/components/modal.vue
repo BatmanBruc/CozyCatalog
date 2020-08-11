@@ -51,11 +51,11 @@ export default {
 <style>
 .modal {
     position: fixed;
-    min-width: 96%;
-    height: 100%;
+    min-width: 98%;
+    height: 99%;
     background: #ffffff;
     top: 0px;
-    margin: 2%;
+    margin: 1%;
     left: 0px;
     border-radius: 4px;
     box-shadow: 0 0 4px #ccc;
@@ -64,6 +64,8 @@ export default {
     position: relative;
     border-bottom: 1px solid #fff;
     background: #00c4ff;
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
 }
 
 .modal__title {
