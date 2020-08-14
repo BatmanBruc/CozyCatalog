@@ -22,7 +22,7 @@
         <div class="fields-wrapper">
           <div class="field field-checkbox">
             <input class="field__checkbox" id="statusSale=0"  type="checkbox" value="statusSale=0" v-model="filter" >
-            <label class="field-checkbox__label" for="statusSale=0"></label>
+            <label class="field-checkbox__label" for="statusSale=0"><span></span></label>
             <span class="field-checkbox__name">В наличии</span>
           </div>
           <div class="field field-checkbox">
