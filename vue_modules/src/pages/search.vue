@@ -30,7 +30,6 @@
             <label class="field-checkbox__label" for="statusSale=1"></label>
             <span class="field-checkbox__name">Проданные</span>
           </div>
-          <hr />
           <div class="field field-select">
             <select v-model="sort">
               <option value="priceUp">Цена по возрастанию</option>

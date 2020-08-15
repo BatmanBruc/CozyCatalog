@@ -4,6 +4,22 @@ class Product extends Model {
     constructor(){
         super('products');
     }
+    getRangePrice(callback){
+        let res = super.get();
+        res.onsuccess = ()=>{
+            let result = res.result;
+            for (var i = 0, endI = result.length - 1; i < endI; i++) {
+                for (var j = 0, endJ = endI - i; j < endJ; j++) {
+                    if (Number(result[j]['price']) > Number(result[j + 1]['price'])) {
+                        var swap = result[j];
+                        result[j] = result[j + 1];
+                        result[j + 1] = swap;
+                    }
+                }
+            }
+            callback(result[0], result[result.length-1]);
+        }
+    }
     search(valInput, filter, sort, callback){
         let res = super.get();
         res.onsuccess = ()=>{
@@ -49,18 +65,12 @@ class Product extends Model {
                             for (var j = 0, endJ = endI - i; j < endJ; j++) {
                                 if (Number(result[j]['price']) > Number(result[j + 1]['price'])) {
                                     var swap = result[j];
-                                    console.log(swap);
-                                    console.log(result[j + 1]);
                                     result[j] = result[j + 1];
                                     result[j + 1] = swap;
-                                    console.log('0' + result[0]['price']);
-                                    console.log('1' + result[1]['price']);
-                                    console.log('2' + result[2]['price']);
-                                    console.log('3' + result[3]['price']);
                                 }
                             }
                         }
-                        console.log(result);            
+                        break;       
                     case 'priceDown':  
                         for (var i = 0, endI = result.length - 1; i < endI; i++) {
                             for (var j = 0, endJ = endI - i; j < endJ; j++) {
@@ -70,10 +80,32 @@ class Product extends Model {
                                     result[j + 1] = swap;
                                 }
                             }
-                        } 
+                        }
+                        break;       
+
                     case 'nameUp':
+                        for (var i = 0, endI = result.length - 1; i < endI; i++) {
+                            for (var j = 0, endJ = endI - i; j < endJ; j++) {
+                                if (Number(result[j]['name']) > Number(result[j + 1]['name'])) {
+                                    var swap = result[j];
+                                    result[j] = result[j + 1];
+                                    result[j + 1] = swap;
+                                }
+                            }
+                        }
+                        break;       
 
                     case 'nameDown':
+                        for (var i = 0, endI = result.length - 1; i < endI; i++) {
+                            for (var j = 0, endJ = endI - i; j < endJ; j++) {
+                                if (result[j]['name'] < result[j + 1]['name']) {
+                                    var swap = result[j];
+                                    result[j] = result[j + 1];
+                                    result[j + 1] = swap;
+                                }
+                            }
+                        }
+                        break;       
 
                   }
             }
