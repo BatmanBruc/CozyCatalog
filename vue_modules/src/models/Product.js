@@ -53,30 +53,40 @@ class Product extends Model {
                                     console.log(result[j + 1]);
                                     result[j] = result[j + 1];
                                     result[j + 1] = swap;
-                                    console.log('0' + result[0]['price']);
-                                    console.log('1' + result[1]['price']);
-                                    console.log('2' + result[2]['price']);
-                                    console.log('3' + result[3]['price']);
+                                    console.log('result[0]: ' + result[0]['price']);
+                                    console.log('result[1]: ' + result[1]['price']);
+                                    console.log('result[2]: ' + result[2]['price']);
+                                    console.log('result[3]: ' + result[3]['price']);
                                 }
                             }
                         }
+                        console.log('result[0]: ' + result[0]['price']);
+                        console.log('result[1]: ' + result[1]['price']);
+                        console.log('result[2]: ' + result[2]['price']);
+                        console.log('result[3]: ' + result[3]['price']);
                         console.log(result);            
-                    case 'priceDown':  
-                        for (var i = 0, endI = result.length - 1; i < endI; i++) {
-                            for (var j = 0, endJ = endI - i; j < endJ; j++) {
-                                if (result[j]['price'] < result[j + 1]['price']) {
-                                    var swap = result[j];
-                                    result[j] = result[j + 1];
-                                    result[j + 1] = swap;
-                                }
-                            }
-                        } 
+                    case 'priceDown': 
+                        console.log('priceDown');
+                        // for (var i = 0, endI = result.length - 1; i < endI; i++) {
+                        //     for (var j = 0, endJ = endI - i; j < endJ; j++) {
+                        //         if (result[j]['price'] < result[j + 1]['price']) {
+                        //             var swap = result[j];
+                        //             result[j] = result[j + 1];
+                        //             result[j + 1] = swap;
+                        //         }
+                        //     }
+                        // } 
                     case 'nameUp':
 
                     case 'nameDown':
 
                   }
             }
+            console.log('==========')
+            console.log('result[0]: ' + result[0]['price']);
+            console.log('result[1]: ' + result[1]['price']);
+            console.log('result[2]: ' + result[2]['price']);
+            console.log('result[3]: ' + result[3]['price']);
             callback(result);
         }
     }
