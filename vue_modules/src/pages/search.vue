@@ -20,11 +20,7 @@
     <modal :visible="visibleSetting" :title="'Настройки'" @close="closeFilter()">
       <div class="product-search__filter">
         <div class="fields-wrapper">
-          <div class="field field-checkbox">
-            <input class="field__checkbox" id="statusSale=0"  type="checkbox" value="statusSale=0" v-model="filter" >
-            <label class="field-checkbox__label" for="statusSale=0"></label>
-            <span class="field-checkbox__name">В наличии</span>
-          </div>
+          
           <div class="field field-checkbox">
             <input class="field__checkbox" id="statusSale=1"  type="checkbox" value="statusSale=1" v-model="filter" >
             <label class="field-checkbox__label" for="statusSale=1"></label>
@@ -37,6 +33,9 @@
               <option value="nameUp">А - Я</option>
               <option value="nameDown">Я - А</option>
             </select>
+          </div>
+          <div class="field field-range">
+            <div id="rangeRangw"></div>
           </div>
         </div>
       </div>
@@ -157,30 +156,9 @@ input.product-search__input {
     padding: 0px;
     margin: 0px;
 }
-.field.field-checkbox {
-    padding: 13px;
-    display: flex;
-}
-label.field-checkbox__label {
-    width: 40px;
-    height: 40px;
-    display: inline-block;
-    border: 1px solid #e4e4e4;
-    border-radius: 6px;
-}
-.field__checkbox {
-    display: none;
-}
-span.field-checkbox__name {
-    line-height: 40px;
-    font-size: 16px;
-    margin-left: 20px;
-    color: #8e8e8e;
-}
+
 .modal__cross svg {
     fill: white;
 }
-.field__checkbox:checked + .field-checkbox__label{
-  background: #00c4ff;
-}
+
 </style>

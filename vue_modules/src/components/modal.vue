@@ -62,17 +62,16 @@ export default {
 }
 .modal__head {
     position: relative;
-    border-bottom: 1px solid #fff;
-    background: #00c4ff;
     border-top-left-radius: 4px;
-    border-top-right-radius: 4px;
+    margin-bottom: 20px;
+    border-top-right-radius: 4px
 }
 
 .modal__title {
     text-align: center;
     padding: 10px;
     font-size: 24px;
-    color: #ffffff;
+    color: #8a8a8a;
 }
 .modal__cross {
     position: absolute;
@@ -86,5 +85,8 @@ export default {
     line-height: 28px;
     overflow: hidden;
     height: 30px;
+}
+.modal__cross svg {
+    fill: #8a8a8a;
 }
 </style>
