@@ -1,5 +1,5 @@
 <template>
-	<div v-if="visible" class="modal">
+	<div v-bind:class="{ active: visible }" class="modal">
         <div class="modal__head">
             <div class="modal__title">{{ title }}</div>
             <div class="modal__cross" @click="close()"><cross /></div>
@@ -51,6 +51,7 @@ export default {
 <style>
 .modal {
     position: fixed;
+    display: none;
     min-width: 98%;
     height: 99%;
     background: #ffffff;
@@ -60,19 +61,21 @@ export default {
     border-radius: 4px;
     box-shadow: 0 0 4px #ccc;
 }
+.modal.active{
+  display: block;
+}
 .modal__head {
     position: relative;
-    border-bottom: 1px solid #fff;
-    background: #00c4ff;
     border-top-left-radius: 4px;
-    border-top-right-radius: 4px;
+    margin-bottom: 20px;
+    border-top-right-radius: 4px
 }
 
 .modal__title {
     text-align: center;
     padding: 10px;
     font-size: 24px;
-    color: #ffffff;
+    color: #8a8a8a;
 }
 .modal__cross {
     position: absolute;
@@ -86,5 +89,8 @@ export default {
     line-height: 28px;
     overflow: hidden;
     height: 30px;
+}
+.modal__cross svg {
+    fill: #8a8a8a;
 }
 </style>

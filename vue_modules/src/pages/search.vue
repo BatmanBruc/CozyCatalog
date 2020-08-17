@@ -20,17 +20,8 @@
     <modal :visible="visibleSetting" :title="'Настройки'" @close="closeFilter()">
       <div class="product-search__filter">
         <div class="fields-wrapper">
-          <div class="field field-checkbox">
-            <input class="field__checkbox" id="statusSale=0"  type="checkbox" value="statusSale=0" v-model="filter" >
-            <label class="field-checkbox__label" for="statusSale=0"></label>
-            <span class="field-checkbox__name">В наличии</span>
-          </div>
-          <div class="field field-checkbox">
-            <input class="field__checkbox" id="statusSale=1"  type="checkbox" value="statusSale=1" v-model="filter" >
-            <label class="field-checkbox__label" for="statusSale=1"></label>
-            <span class="field-checkbox__name">Проданные</span>
-          </div>
-          <hr />
+          <checkbox id="nonSale" @check="changeCheckboxFilter"/>
+          <checkbox id="sale" @check="changeCheckboxFilter"/>
           <div class="field field-select">
             <select v-model="sort">
               <option value="priceUp">Цена по возрастанию</option>
@@ -38,6 +29,9 @@
               <option value="nameUp">А - Я</option>
               <option value="nameDown">Я - А</option>
             </select>
+          </div>
+          <div class="field field-range">
+            <div id="rangeRangw"></div>
           </div>
         </div>
       </div>
@@ -50,11 +44,13 @@ import product from '../components/product.vue';
 import modal from '../components/modal.vue';
 import Product from '../models/Product.js';
 import settingIcon from '../assept/icons/setting'
+import checkbox from '../components/fields/field-checkbox'
 export default {
   components:{
     modal: modal,
     product: product,
-    settingIcon: settingIcon
+    settingIcon: settingIcon,
+    checkbox: checkbox
   },
   name: 'Search',
   data () {
@@ -63,7 +59,18 @@ export default {
         
       ],
       value: null,
-      filter: ['statusSale=true'],
+      filter: {
+        nonSale: {
+          active: false,
+          value: false,
+          key: 'statusSale'
+        },
+        sale: {
+          active: false,
+          value: true,
+          key: 'statusSale'
+        }
+      },
       visibleSetting: false,
       sort: false
     }
@@ -99,6 +106,10 @@ export default {
     },
     closeFilter(){
       this.visibleSetting = false;
+    },
+    changeCheckboxFilter(checkbox){
+      this.filter[checkbox.id]['active'] = checkbox.checked;
+      this.getproducts();
     }
   }
 }
@@ -158,30 +169,9 @@ input.product-search__input {
     padding: 0px;
     margin: 0px;
 }
-.field.field-checkbox {
-    padding: 13px;
-    display: flex;
-}
-label.field-checkbox__label {
-    width: 40px;
-    height: 40px;
-    display: inline-block;
-    border: 1px solid #e4e4e4;
-    border-radius: 6px;
-}
-.field__checkbox {
-    display: none;
-}
-span.field-checkbox__name {
-    line-height: 40px;
-    font-size: 16px;
-    margin-left: 20px;
-    color: #8e8e8e;
-}
+
 .modal__cross svg {
     fill: white;
 }
-.field__checkbox:checked + .field-checkbox__label{
-  background: #00c4ff;
-}
+
 </style>
