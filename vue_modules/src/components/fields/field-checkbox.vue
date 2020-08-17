@@ -38,5 +38,27 @@ export default {
 </script>
 
 <style>
-
+.field.field-checkbox {
+    padding: 13px;
+    display: flex;
+}
+label.field-checkbox__label {
+    width: 40px;
+    height: 40px;
+    display: inline-block;
+    border: 1px solid #e4e4e4;
+    border-radius: 6px;
+}
+.field__checkbox {
+    display: none;
+}
+.field__checkbox:checked + .field-checkbox__label{
+  background: #00c4ff;
+}
+span.field-checkbox__name {
+    line-height: 40px;
+    font-size: 16px;
+    margin-left: 20px;
+    color: #8e8e8e;
+}
 </style>
