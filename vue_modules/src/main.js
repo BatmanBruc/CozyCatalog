@@ -6,8 +6,17 @@ import Product from './models/Product';
 
 window.backButton = backButton;
 Vue.use(Vuex);
+let dispatcher = new Vuex.Store({
+	state: {
+      updateProducts: false,
+      updateFinance: false
+	}
+})
 
 window.store = new Vuex.Store({
+  modules: {
+    dispatcher: dispatcher,
+	},
 	state: {
       filter: null,
       nav_open: true,

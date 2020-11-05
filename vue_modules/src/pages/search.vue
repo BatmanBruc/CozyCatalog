@@ -20,10 +20,11 @@
     <modal :visible="visibleSetting" :title="'Настройки'" @close="closeFilter()">
       <div class="product-search__filter">
         <div class="fields-wrapper">
-          <checkbox id="nonSale" @check="changeCheckboxFilter"/>
-          <checkbox id="sale" @check="changeCheckboxFilter"/>
+          <checkbox id="nonSale" :title="'В наличии'" @check="changeCheckboxFilter"/>
+          <checkbox id="sale" :title="'Проданные'" @check="changeCheckboxFilter"/>
           <div class="field field-select">
             <select v-model="sort">
+              <option value="#" disabled="disabled" selected="selected"> - Сортировка - </option>
               <option value="priceUp">Цена по возрастанию</option>
               <option value="priceDown">Цена по убыванию</option>
               <option value="nameUp">А - Я</option>
@@ -72,14 +73,16 @@ export default {
         }
       },
       visibleSetting: false,
-      sort: false
+      sort: '#'
     }
   },
   created(){
     this.getproducts();
   },
   computed: {
-    
+    update(){
+      return this.$store.state.dispatcher.updateProducts;
+    }
   },
   watch: {
     filter(){
@@ -87,6 +90,12 @@ export default {
     },
     sort(){
       this.getproducts();
+    },
+    update(){
+      if(this.$store.state.dispatcher.updateProducts){
+        this.getproducts();
+        this.$store.state.dispatcher.updateProducts = false;
+      }
     }
   },
   methods: {
@@ -116,6 +125,12 @@ export default {
 </script>
 
 <style>
+.product-search{
+  display: none;
+}
+.product-search.active {
+  display: block;
+}
 .product-search__form {
     width: 100%;
 }
@@ -173,5 +188,16 @@ input.product-search__input {
 .modal__cross svg {
     fill: white;
 }
-
+.field.field-select {
+    padding: 20px;
+}
+.field-select select {
+    border: 1px;
+    background: #dbf7ff;
+    border-bottom: 1px solid #00c4ff;
+    width: 100%;
+    padding: 10px;
+    color: #00c4ff;
+    font-size: 16px;
+}
 </style>

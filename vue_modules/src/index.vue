@@ -6,13 +6,13 @@
             @openPage="openPage"
         />
         <search
-            v-if="activePage == 'search'"
+            v-bind:class="{ active: (activePage == 'search') }"
         />
         <adminPanel
-            v-if="activePage == 'adminPanel'"
+            v-bind:class="{ active: (activePage == 'adminPanel') }"
         />
         <finance
-            v-if="activePage == 'finance'"
+            v-bind:class="{ active: (activePage == 'finance') }"
         />
         <productPage
             :id="productPage.id"

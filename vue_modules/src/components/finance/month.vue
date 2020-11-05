@@ -3,17 +3,18 @@
         <div class="month__header" @click="showActList">
           <div class="month__name">{{ getNameMonth() }}</div>
           <div class="month__finance_wrapepr">
-            <div v-if="finance['₽']" class="month__finance">{{ finance['₽'] }} ₽</div>
-            <div v-if="finance['$']"  class="month__finance">{{ finance['$'] }} $</div>
-            <div v-if="finance['€']"  class="month__finance">{{ finance['€'] }} €</div>
+            <div v-if="finance['₽']" class="month__finance">{{ finance['₽'] }} ₽ <span> / </span></div>
+            <div v-if="finance['$']"  class="month__finance">{{ finance['$'] }} $<span> / </span></div>
+            <div v-if="finance['€']"  class="month__finance">{{ finance['€'] }} €<span> / </span></div>
           </div>
         </div>
         <div class="mini-list-product" v-if="showList">
           <miniProduct
-	      v-for="product in list"
-	      :name="product.name"
-	      :price="product.price"
-	      :img="product.img"
+            v-for="product in list"
+            :name="product.name"
+            :price="product.price"
+            :img="product.img"
+            :currency="product.currency"
 	      ></miniProduct>
         </div>
       </div>
@@ -65,19 +66,20 @@ export default {
       },
       getNameMonth(){
         let array = {
-          0: 'Январь',
-          1: 'Февраль',
-          2: 'Март',
-          3: 'Апрель',
-          4: 'Май',
-          5: 'Июнь',
-          6: 'Июль',
-          7: 'Август',
-          8: 'Сентябрь',
-          9: 'Октябрь',
-          10: 'Ноябрь',
-          11: 'Декабрь',
+          1: 'Январь',
+          2: 'Февраль',
+          3: 'Март',
+          4: 'Апрель',
+          5: 'Май',
+          6: 'Июнь',
+          7: 'Июль',
+          8: 'Август',
+          9: 'Сентябрь',
+          10: 'Октябрь',
+          11: 'Ноябрь',
+          12: 'Декабрь',
         };
+        console.log(this.month);
         return array[this.month];
       },
   }
@@ -85,24 +87,31 @@ export default {
 </script>
 
 <style>
-.month__finance_wrapepr{
-  display: flex;
+.month__finance_wrapepr {
+    display: flex;
+    margin-top: 5px;
 }
 .month__header {
     border-radius: 2px;
-    padding: 15px;
-    border-bottom: 1px solid #c4c4c4;
-    background: #f2f2f2;
+    padding: 9px;
+    background: #dbf7ff;
+    border-bottom: 1px solid #00c4ff;
 }
 .month__name {
     display: inline-block;
-    width: 49%;
     font-style: normal;
     color: #000000;
+    color: #00c4ff;
+}
+.month__finance span {
+    color: #ccc;
 }
 .month__finance {
     display: inline-block;
-    width: 49%;
-    text-align: end;
+    font-size: 11px;
+    margin-left: 5px;
+}
+.month__finance:last-child span{
+  display: none;
 }
 </style>

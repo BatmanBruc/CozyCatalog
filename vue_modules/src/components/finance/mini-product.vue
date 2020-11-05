@@ -2,7 +2,7 @@
 	<div class="mini-product" @click="openPage">
     <div class="mini-product__img"><img :src="img"/></div>
     <div class="mini-product__name">{{ name }}</div>
-    <div class="mini-product__price">{{ price }} ₽</div>
+    <div class="mini-product__price">{{ price }} {{ currency }}</div>
   </div>
 </template>
 
@@ -25,6 +25,10 @@ export default {
     img: {
       type: String,
       default: '',
+    },
+    currency: {
+      type: String,
+      default: ''
     }
   },
   data () {
@@ -60,6 +64,10 @@ export default {
 }
 .mini-product__img{
     display: inline-block;
+    width: 30px;
+}
+.mini-product__img img{
+    width: 100%;
 }
 .mini-product__name {
     display: inline-block;

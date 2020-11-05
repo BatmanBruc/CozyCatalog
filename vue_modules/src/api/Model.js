@@ -6,21 +6,19 @@ class Model{
     constructor(nameStore){
         this.store = new Store(nameStore);
     }
-    get(id){
+    async get(id){
         let res;
         if(id)
-            res = this.store.get(id);
+            res = await this.store.get(id);
         else
-            res = this.store.getAll();
+            res = await this.store.getAll();
         return res;
     }
     set(val){
         let res = this.store.set(val);
-        res.onsuccess = ()=>{
-            console.log(res.result)
-        }
+        return res;
     }
-    change(id,val){
+    change(id, val, callback){
         let res = this.store.get(id);
         res.onsuccess = ()=>{
             let item = res.result;
@@ -34,7 +32,8 @@ class Model{
                 val.id = id
                 res = this.store.set(item);
                 res.onsuccess = ()=>{
-                    console.log(res.result)
+                    if(callback)
+                        callback();
                 }
             }
             if(!find)

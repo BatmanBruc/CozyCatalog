@@ -1,5 +1,5 @@
 <template>
-	<div>
+	<div class="finance">
     <div class="list-month">
       <month
 	      v-for="month in months"
@@ -34,6 +34,20 @@ export default {
     //this.getData();
   },
   computed: {
+    update(){
+      return this.$store.state.dispatcher.updateFinance;
+    }
+  },
+  watch: {
+    update(){
+      alert(this.$store.state.dispatcher.updateFinance);
+      if(this.$store.state.dispatcher.updateFinance){
+        Finance.get((months)=>{
+          this.months = months;
+        });
+        this.$store.state.dispatcher.updateFinance = false;
+      }
+    }
   },
   methods: {
     async getData(){
@@ -66,33 +80,10 @@ export default {
 </script>
 
 <style>
-
-
-.mini-product {
-    border-bottom: 1px solid #cacaca;
-    padding: 15px;
-    line-height: 40px;
+.finance{
+  display: none;
 }
-.mini-product:last-child {
-    border-bottom: 0px;
-}
-.mini-product__name {
-    display: inline-block;
-    width: 49%;
-    color: #686868;
-}
-.mini-product__price {
-    display: inline-block;
-    width: 49%;
-    text-align: end;
-    color: #686868;
-}
-.mini-product__img {
-    display: inline-block;
-    height: 40px;
-    margin-right: 30px;
-}
-.mini-product__img img{
-  height:100%;
+.finance.active {
+  display: block;
 }
 </style>

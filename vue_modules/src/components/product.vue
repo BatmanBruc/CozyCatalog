@@ -67,8 +67,10 @@ export default {
       this.statusSale = true;
       Product.change(this.id, {
         statusSale: this.statusSale,
+      },()=>{
+        this.$emit('sale');
+        this.$store.state.dispatcher.updateFinance = true;
       });
-      this.$emit('sale');
     },
     openPage(){
       let res = Product.get(this.id);
@@ -87,8 +89,10 @@ export default {
       this.statusSale = false;
       Product.change(this.id, {
         statusSale: this.statusSale,
+      },()=>{
+        this.$emit('sale');
+        this.$store.state.dispatcher.updateFinance = true;
       });
-      this.$emit('return');
     }
   }
 }

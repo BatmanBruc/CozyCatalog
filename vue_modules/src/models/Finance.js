@@ -4,11 +4,12 @@ class Finance extends Model {
     constructor(){
         super('products');
     }
-    get(callback){
-        let res = super.get();
+    async get(callback){
+        let res = await super.get();
         res.onsuccess = ()=>{
             let assocMonths = {};
             let months = [];
+            console.log(res.result);
             for (let index = 0; index < res.result.length; index++) {
                 let element = res.result[index];
                 if(!element.statusSale)
@@ -19,12 +20,13 @@ class Finance extends Model {
                     assocMonths[month]['finance'] = {};
                     assocMonths[month]['list'] = [];
                 }
-                assocMonths[month]['month'] = new Date(1594737244615).getMonth();
+                assocMonths[month]['month'] = month;
                 assocMonths[month]['list'].push(
                     {
                         name: element.name,
                         price: element.price,
-                        img: element.file
+                        img: element.file,
+                        currency: element.currency
                     }
                 )
                 if(assocMonths[month]['finance'][element.currency]){
@@ -36,7 +38,6 @@ class Finance extends Model {
             for (let key in assocMonths) {
                 months.push(assocMonths[key]);
             }
-            console.log(months);
             callback(months);
         }
     }

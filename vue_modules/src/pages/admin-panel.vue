@@ -104,8 +104,9 @@ export default {
         'created_at': Date.now(),
         'update_at': Date.now(),
       }
-      product.set(params);
+      let res = product.set(params);
       this.productPage = params;
+      this.$store.state.dispatcher.updateProducts = true;
     }
   }
 }
@@ -118,7 +119,11 @@ export default {
   font-size: 27px;
 }
 .admin-panel {
+    display: none;
     padding-bottom: 20px;
+}
+.admin-panel.active {
+    display: block;
 }
 .field {
     padding: 1px;

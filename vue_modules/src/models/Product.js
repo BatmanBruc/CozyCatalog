@@ -20,8 +20,8 @@ class Product extends Model {
             callback(result[0], result[result.length-1]);
         }
     }
-    search(valInput, filter, sort, callback){
-        let res = super.get();
+    async search(valInput, filter, sort, callback){
+        let res = await super.get();
         res.onsuccess = ()=>{
             let result = res.result;
             if(valInput){
@@ -53,6 +53,8 @@ class Product extends Model {
                     // }
                     for(let key in filter){
                         let property = filter[key];
+                        if(!property.active)
+                            continue;
                         if(element[property.key] == property.value){
                             skip = false;
                             break;
