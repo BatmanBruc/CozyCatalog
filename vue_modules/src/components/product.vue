@@ -77,13 +77,13 @@ export default {
       res.onsuccess = ()=>{
         this.$store.state.productPage = res.result;
       }
-      // this.$store.state.productPage = {
-      //   id: this.id,
-      //   name: this.name,
-      //   file: this.file,
-      //   statusSale: this.statusSale,
-      //   price: this.price
-      // };
+      this.$store.state.productPage = {
+        id: this.id,
+        name: this.name,
+        file: this.file,
+        statusSale: this.statusSale,
+        price: this.price
+      };
     },
     reeturn(){
       this.statusSale = false;

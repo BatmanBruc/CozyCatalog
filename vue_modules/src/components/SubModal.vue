@@ -1,8 +1,9 @@
 <template>
-	<div v-bind:class="{ active: visible }" class="modal">
-        <div class="modal__head">
-            <div class="modal__title">{{ title }}</div>
-            <div class="modal__cross" @click="close()"><cross /></div>
+test
+	<div v-bind:class="{ active: visible }" class="SubModal">
+        <div class="SubModal__head">
+            <div class="SubModal__title">{{ title }}</div>
+            <div class="SubModal__cross" @click="close()"><cross /></div>
         </div>
         <slot></slot>
 	</div>
@@ -26,7 +27,7 @@ export default {
         default: 'Окно'
     }
   },
-  name: 'modal',
+  name: 'SubModal',
   data () {
     return {
         
@@ -48,7 +49,7 @@ export default {
 </script>
 
 <style>
-.modal {
+.SubModal {
     position: fixed;
     display: none;
     min-width: 98%;
@@ -60,23 +61,24 @@ export default {
     border-radius: 4px;
     box-shadow: 0 0 4px #ccc;
 }
-.modal.active{
+.SubModal.active{
   display: block;
 }
-.modal__head {
+.SubModal__head {
     position: relative;
     border-top-left-radius: 4px;
     margin-bottom: 20px;
     border-top-right-radius: 4px;
+    z-index: 1;
 }
 
-.modal__title {
+.SubModal__title {
     text-align: center;
     padding: 10px;
     font-size: 24px;
     color: #8a8a8a;
 }
-.modal__cross {
+.SubModal__cross {
     position: absolute;
     left: 10px;
     top: 10px;
@@ -89,7 +91,7 @@ export default {
     overflow: hidden;
     height: 30px;
 }
-.modal__cross svg {
+.SubModal__cross svg {
     fill: #8a8a8a;
 }
 </style>

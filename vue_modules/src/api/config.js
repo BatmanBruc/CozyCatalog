@@ -1,4 +1,4 @@
 export default {
     'name': 'CozyCatalog',
-    'version': 1
+    'version': 2
 }

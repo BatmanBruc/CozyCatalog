@@ -1,12 +1,17 @@
 <template>
-	<div class="finance">
-    <div class="list-month">
-      <month
-	      v-for="month in months"
-	      :month="month.month"
-	      :finance="month.finance"
-	      :list="month.list"
-	      ></month>
+  <div class="page-finance">
+    <div class="page-head">
+      <div class="page-head-b-square" @click="openFilter()"><settingIcon /></div>
+    </div>
+    <div class="finance">
+      <div class="list-month">
+        <month
+          v-for="month in months"
+          :month="month.month"
+          :finance="month.finance"
+          :list="month.list"
+          ></month>
+      </div>
     </div>
   </div>
 </template>
@@ -16,9 +21,11 @@
 <script>
 import month from '../components/finance/month';
 import Finance from '../models/Finance.js'
+import settingIcon from '../assept/icons/сogwheel'
 export default {
   components:{
-    month
+    month,
+    settingIcon
   },
   name: 'finance',
   data () {
@@ -40,7 +47,6 @@ export default {
   },
   watch: {
     update(){
-      alert(this.$store.state.dispatcher.updateFinance);
       if(this.$store.state.dispatcher.updateFinance){
         Finance.get((months)=>{
           this.months = months;
@@ -80,10 +86,10 @@ export default {
 </script>
 
 <style>
-.finance{
+.page-finance{
   display: none;
 }
-.finance.active {
+.page-finance.active {
   display: block;
 }
 </style>

@@ -1,7 +1,7 @@
 <template>
 	<div class="product-search">
-    <div class="product-search__field" >
-      <div class="product-search__b-filter" @click="openFilter()"><settingIcon /></div>
+    <div class="page-head">
+      <div class="page-head-b-square" @click="openFilter()"><settingIcon /></div>
       <div class="product-search__form">
         <input @change="getproducts(value)" @keydown.enter="getproducts(value)" v-model="value" type="text" class="product-search__input"/>
       </div>
@@ -20,8 +20,8 @@
     <modal :visible="visibleSetting" :title="'Настройки'" @close="closeFilter()">
       <div class="product-search__filter">
         <div class="fields-wrapper">
-          <checkbox id="nonSale" :title="'В наличии'" @check="changeCheckboxFilter"/>
-          <checkbox id="sale" :title="'Проданные'" @check="changeCheckboxFilter"/>
+          <checkbox id="nonSale" :title="'В наличии'" :value="filter.nonSale.value" @check="changeCheckboxFilter"/>
+          <checkbox id="sale" :title="'Проданные'" :value="filter.sale.value" @check="changeCheckboxFilter"/>
           <div class="field field-select">
             <select v-model="sort">
               <option value="#" disabled="disabled" selected="selected"> - Сортировка - </option>
@@ -62,8 +62,8 @@ export default {
       value: null,
       filter: {
         nonSale: {
-          active: false,
-          value: false,
+          active: true,
+          value: true,
           key: 'statusSale'
         },
         sale: {
@@ -134,15 +134,16 @@ export default {
 .product-search__form {
     width: 100%;
 }
-.product-search__b-filter {
+.page-head-b-square {
     height: 40px;
     border: 1px solid #ccc;
     min-width: 40px;
     border-radius: 8px;
     margin-right: 5px;
 }
-.product-search__b-filter svg {
+.page-head-b-square svg {
     width: 24px;
+    height: 24px;
     margin: 8px;
     fill: #747474;
 }
@@ -167,7 +168,7 @@ ul{
   background: #6caffa;
   color: #ffffff;
 }
-.product-search__field {
+.page-head {
     margin-bottom: 20px;
     display:flex;
 }
