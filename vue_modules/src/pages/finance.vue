@@ -1,7 +1,7 @@
 <template>
   <div class="page-finance">
     <div class="page-head">
-      <div class="page-head-b-square" @click="openFilter()"><settingIcon /></div>
+      <div class="page-head-b-square" @click="openCost()"><settingIcon /></div>
     </div>
     <div class="finance">
       <div class="list-month">
