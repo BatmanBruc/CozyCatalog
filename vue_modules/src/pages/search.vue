@@ -68,7 +68,7 @@ export default {
         },
         sale: {
           active: false,
-          value: true,
+          value: false,
           key: 'statusSale'
         }
       },
@@ -80,9 +80,11 @@ export default {
     this.getproducts();
   },
   computed: {
-    update(){
-      return this.$store.state.dispatcher.updateProducts;
-    }
+    productsUpdate(){
+      console.log(this.$store.state.searchProduct)
+      return this.$store.state.searchProduct;
+    },
+
   },
   watch: {
     filter(){
@@ -90,6 +92,9 @@ export default {
     },
     sort(){
       this.getproducts();
+    },
+    productsUpdate(){
+      this.products = this.$store.state.searchProduct;
     },
     update(){
       if(this.$store.state.dispatcher.updateProducts){
@@ -100,11 +105,12 @@ export default {
   },
   methods: {
     async getproducts(){
-      this.products = [];
-      Product.search(this.value, this.filter, this.sort, (result)=> {
-        this.products = result;
-        console.log(this.products);
-      })
+      // this.products = [];
+      // Product.search(this.value, this.filter, this.sort, (result)=> {
+      //   this.products = result;
+      //   console.log(this.products);
+      // })
+      this.$store.commit('loadSearchProduct', { value: this.value, filter: this.filter, sort: this.sort});
     },
     openFilter(){
       console.log(this.visibleSetting);

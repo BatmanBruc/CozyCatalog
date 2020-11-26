@@ -20,8 +20,18 @@ window.store = new Vuex.Store({
 	state: {
       filter: null,
       nav_open: true,
-      productPage: null
-	}
+      productPage: null,
+      searchProduct: []
+  },
+  mutations: {
+    loadSearchProduct(state ,params){
+      console.log(params);
+      Product.search(params.value, params.filter, params.sort, (result)=> {
+        state.searchProduct = result;
+        console.log(result);
+      })
+    }
+  }
 })
 
 // new Vue({

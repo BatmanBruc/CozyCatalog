@@ -12,10 +12,10 @@
 
 
 <script>
-import { getNowDateString } from '../../helpers.js';
-import product from '../../models/Product.js';
-import category from '../../models/Category.js';
-import modal from '../modal';
+import { getNowDateString } from '../helpers.js';
+import product from '../models/Product.js';
+import category from '../models/Category.js';
+import modal from './modal';
 export default {
   components:{
     modal

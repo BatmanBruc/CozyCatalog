@@ -65,6 +65,7 @@ class Product extends Model {
                     else
                         products.push(element);
                 }
+                console.log(result);
                 result = products;
             }
             if(sort){
@@ -118,6 +119,7 @@ class Product extends Model {
 
                   }
             }
+            console.log(result);
             callback(result);
         }
     }
