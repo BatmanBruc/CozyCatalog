@@ -1,7 +1,7 @@
 <template>
   <div class="page-finance">
     <div class="page-head">
-      <div class="page-head-b-square" @click="openCost()"><settingIcon /></div>
+      <div class="page-head-b-square" @click="()=>{this.visibleCost = true}"><settingIcon /></div>
     </div>
     <div class="finance">
       <div class="list-month">
@@ -13,6 +13,7 @@
           ></month>
       </div>
     </div>
+    <Cost :open="visibleCost" :close="()=>{this.visibleCost = false}">
   </div>
 </template>
 
@@ -22,15 +23,18 @@
 import month from '../components/finance/month';
 import Finance from '../models/Finance.js'
 import settingIcon from '../assept/icons/сogwheel'
+import Cost from '../components/Cost'
 export default {
   components:{
     month,
-    settingIcon
+    settingIcon,
+    Cost
   },
   name: 'finance',
   data () {
     return {
-      months: []
+      months: [],
+      visibleCost: false
     }
   },
   created(){
